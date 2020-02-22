@@ -1,6 +1,6 @@
 # Google Doc Shell
 
-A library used to run a daemon to create a Google Document that allows to run 
+A library used to create a Google Document that allows to run 
 shell commands.
 
 ## Setup
@@ -31,6 +31,7 @@ credentials = path/to/your/credentials.json
 7. Run the daemon service: `python gdoc_shell.py start` 
 The first time it will open a browser
 so you can login and allow the connection.
+
 ![Allow](assets/img/allow.png)
 
 
@@ -75,3 +76,9 @@ valid_commands = ls, pwd, touch, mv
 Everyone with access to your doc can write and therefore execute commands.
 By default only you have access to this document but it can be shared
 as any other Google Doc.
+
+### How to stop the daemon process?
+
+```shell script
+python gdoc_shell.py stop
+```
