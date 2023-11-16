@@ -54,7 +54,6 @@ logger, handler = utils.setup_logger(__name__)
 
 DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 
-
 def _get_http_client(cred_file):
     """Uses project credentials (if exists) along with requested OAuth2 scopes.
 
@@ -294,15 +293,21 @@ def start_daemon_process():
             _run()
             time.sleep(sleep_time)
 
+def restart():
+    start_daemon_process()
+    stop()
 
 if __name__ == '__main__':
     args = utils.build_parser()
-    if args.mode == 'start':
-        start_daemon_process()
-    elif args.mode == 'stop':
-        stop()
-    elif args.mode == 'restart':
-        stop()
-        start_daemon_process()
+    # available modes for the tool
+    MODES = {
+        "start":start_daemon_process,
+        "stop": stop,
+        "restart": restart,
+    }
+    mode = args.mode
+    if mode in MODES:
+        fn = MODES[mode]
+        fn()
     else:
         raise ValueError('Invalid mode.')
